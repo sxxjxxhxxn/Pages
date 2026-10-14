@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Heize 개인정보 처리방침</title>
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 40rem; margin: 2.5rem auto; padding: 0 1.25rem; line-height: 1.65; color: #1a1a1a; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 42rem; margin: 2.5rem auto; padding: 0 1.25rem; line-height: 1.65; color: #1a1a1a; }
     h1 { font-size: 1.5rem; margin-bottom: 0.35rem; }
     h2 { font-size: 1.1rem; margin-top: 1.75rem; }
     .meta { color: #555; font-size: 0.95rem; }
@@ -16,36 +16,63 @@
 <body>
   <p><a href="../">← Heize</a></p>
   <h1>개인정보 처리방침</h1>
-  <p class="meta">최종 업데이트: 2026-10-13<br />운영: Heize<br />문의: <a href="mailto:rv6qxfg9mm@privaterelay.appleid.com">rv6qxfg9mm@privaterelay.appleid.com</a></p>
+  <p class="meta">최종 업데이트: 2026-10-14<br />운영자: Jaehun Seo (Heize)<br />문의: <a href="mailto:rv6qxfg9mm@privaterelay.appleid.com">rv6qxfg9mm@privaterelay.appleid.com</a></p>
 
-  <h2>1. 수집·이용</h2>
+  <h2>1. 처리하는 정보와 목적</h2>
   <ul>
-    <li><strong>첨부 도안(PDF·사진)</strong>: 사용자가 AI 도안 분석을 요청할 때만 분석 서버로 전송됩니다.</li>
-    <li><strong>프로젝트·카운터·도안 편집 내용</strong>: 기기에 저장되며, 별도 회원 가입·로그인 없이 동작합니다.</li>
-    <li><strong>AI 무료 이용 횟수</strong>: iCloud(Apple ID) Key-Value로 동기화될 수 있습니다. 저희 서버로 보내지 않습니다.</li>
-    <li><strong>앱 내 구입</strong>: 결제는 Apple이 처리하며, 구매 확인은 StoreKit으로 이뤄집니다.</li>
-    <li><strong>카메라</strong>: 게이지 측정 등 해당 기능을 사용할 때만 접근합니다.</li>
+    <li><strong>프로젝트와 도안 파일</strong>: 프로젝트 이름, 뜨개 종류, 진행 상태, 도안 편집 내용, 첨부한 PDF·사진은 프로젝트 관리 기능을 위해 기기에 저장됩니다. 별도 회원 가입이나 로그인이 필요하지 않습니다.</li>
+    <li><strong>AI 도안 분석</strong>: 사용자가 분석을 선택하고 앱의 안내에 동의한 경우에만, 파일 이름과 선택한 PDF·사진에서 기기 내 추출한 텍스트 및 분석에 필요한 페이지 이미지가 Cloudflare Worker를 거쳐 Google Gemini API로 전송됩니다. AI는 도안의 파트·단계·옵션을 정리합니다. 선택한 PDF의 최대 40페이지를 분석하며, 40페이지를 넘으면 분석할 범위를 선택할 수 있습니다. 분석 결과와 원본 첨부는 프로젝트를 저장하면 기기에 저장됩니다.</li>
+    <li><strong>무료 분석 횟수</strong>: 남은 분석 횟수는 Apple iCloud Key-Value Store를 통해 동기화될 수 있습니다. 프로젝트 내용과 도안 파일은 이 기능으로 동기화되지 않습니다.</li>
+    <li><strong>구매</strong>: 잠금 해제 구매와 복원은 Apple StoreKit을 이용합니다. 결제 정보는 Apple이 처리하며 Heize는 카드 정보를 받지 않습니다.</li>
+    <li><strong>카메라</strong>: 게이지 측정 등 사용자가 해당 기능을 선택할 때만 접근합니다.</li>
   </ul>
 
-  <h2>2. 제3자 처리</h2>
-  <p>도안 분석 시, 요청한 도안 데이터가 저희 중계 서버를 거쳐 Google Gemini API로 처리될 수 있습니다. 광고·추적 SDK는 사용하지 않습니다.</p>
-
-  <h2>3. 보관</h2>
+  <h2>2. 외부 서비스와 처리</h2>
   <ul>
-    <li>기기 내 데이터는 앱을 삭제하거나 사용자가 프로젝트를 지울 때까지 보관됩니다.</li>
-    <li>분석 요청으로 전송된 도안은 분석 처리 목적 외로 판매하지 않으며, 서비스 운영에 필요한 최소 범위에서 처리됩니다.</li>
+    <li><strong>Cloudflare</strong>: 요청 전달과 IP별 요청 제한을 위해 요청 IP 주소를 처리합니다. Heize Worker 코드는 요청 본문을 별도로 저장하지 않습니다. 오류 알림에는 모델, 상태 코드, 시각 등만 포함하고 도안 또는 Gemini 응답 본문은 넣지 않습니다. Cloudflare 자체의 처리와 보관은 <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare 개인정보 처리방침</a>을 따릅니다.</li>
+    <li><strong>Google Gemini API (유료 서비스)</strong>: 현재 Cloud Billing이 연결된 유료 Gemini API 서비스를 사용합니다. Google은 이 유료 서비스에서 프롬프트와 응답을 Google 제품 개선에 사용하지 않지만, 악용 정책 위반을 탐지·방지하기 위해 제한된 기간 보관할 수 있습니다. 자세한 내용은 <a href="https://ai.google.dev/gemini-api/terms">Gemini API 약관</a>과 <a href="https://ai.google.dev/gemini-api/docs/zdr">데이터 보관 안내</a>를 확인해 주세요.</li>
   </ul>
+  <p>민감하거나 기밀인 정보를 포함한 도안은 AI 분석에 보내지 마세요. 광고·추적 SDK는 사용하지 않습니다.</p>
 
-  <h2>4. 권리·문의</h2>
-  <p>기기에서 프로젝트와 첨부 파일을 삭제할 수 있습니다. 문의는 위 이메일로 연락해 주세요.</p>
+  <h2>3. 보관과 삭제</h2>
+  <p>프로젝트와 첨부 파일은 사용자가 프로젝트를 삭제하거나 앱을 삭제할 때까지 기기에 보관됩니다. 앱은 백그라운드로 전환될 때 마지막 정상 상태의 프로젝트와 첨부 파일을 앱 전용 저장 공간에 자동 백업하며, 저장소 오류가 발견되면 손상된 저장소와 첨부 파일도 별도 사본으로 보존합니다. 앱에서 내보내는 복구 백업에는 프로젝트 데이터와 첨부 파일이 포함됩니다. 사용자가 백업을 내보내면 선택한 위치에 별도 파일로 보관되며 앱 삭제 시 자동 삭제되지 않으므로 직접 삭제해야 합니다.</p>
+  <p>AI 분석을 위해 전송된 데이터의 처리는 Cloudflare와 Google의 정책 및 서비스 조건을 따릅니다. Heize는 전송된 도안이나 분석 결과를 자체 서버에 별도 저장하지 않습니다.</p>
 
-  <h2>5. 변경</h2>
-  <p>방침이 바뀌면 이 페이지의 날짜를 갱신합니다.</p>
+  <h2>4. 문의와 권리</h2>
+  <p>기기에서 프로젝트와 첨부 파일을 삭제할 수 있습니다. 개인정보 관련 문의는 <a href="mailto:rv6qxfg9mm@privaterelay.appleid.com">rv6qxfg9mm@privaterelay.appleid.com</a>로 연락해 주세요.</p>
+
+  <h2>5. 방침 변경</h2>
+  <p>방침이 바뀌면 이 페이지의 최종 업데이트 날짜를 변경합니다.</p>
 
   <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
 
   <h1 lang="en">Privacy Policy</h1>
-  <p class="meta" lang="en">Last updated: 2026-10-13<br />Contact: <a href="mailto:rv6qxfg9mm@privaterelay.appleid.com">rv6qxfg9mm@privaterelay.appleid.com</a></p>
-  <p lang="en">Heize stores projects and counters on your device without a separate account. Free AI analysis counts may sync via iCloud (Apple ID) and are not sent to our servers. In-app purchases are processed by Apple. When you request AI pattern analysis, the pattern file or photo you attach may be sent through our relay server to Google Gemini for processing. Camera access is used only for optional gauge measurement. We do not use advertising or tracking SDKs. Delete projects in the app or uninstall the app to remove on-device data. Contact us at the email above with any questions.</p>
+  <p class="meta" lang="en">Last updated: 2026-10-14<br />Operator: Jaehun Seo (Heize)<br />Contact: <a href="mailto:rv6qxfg9mm@privaterelay.appleid.com">rv6qxfg9mm@privaterelay.appleid.com</a></p>
+
+  <h2 lang="en">1. Information and purposes</h2>
+  <ul lang="en">
+    <li><strong>Projects and pattern files</strong>: Project names, craft type, progress, edited pattern content, and attached PDFs or photos are stored on the device to provide project management. No separate account or sign-in is required.</li>
+    <li><strong>AI pattern analysis</strong>: Only when you request analysis and agree to the in-app notice, the file name, text extracted on the device from the selected PDF or photo, and page images needed for analysis are sent through a Cloudflare Worker to the Google Gemini API. AI organizes pattern sections, steps, and options. Up to 40 selected PDF pages are analyzed; for longer PDFs you can choose a range. The source attachment and analysis result are stored on the device when you save the project.</li>
+    <li><strong>Free analysis count</strong>: The remaining count may sync through Apple iCloud Key-Value Store. Project content and pattern files are not synced by this feature.</li>
+    <li><strong>Purchases</strong>: Unlock purchases and restoration use Apple StoreKit. Apple processes payment information; Heize does not receive card details.</li>
+    <li><strong>Camera</strong>: Accessed only when you choose a feature that needs it, such as gauge measurement.</li>
+  </ul>
+
+  <h2 lang="en">2. Third-party services</h2>
+  <ul lang="en">
+    <li><strong>Cloudflare</strong>: Processes the request IP address to route requests and apply per-IP rate limits. The Heize Worker code does not separately store request bodies. Error alerts contain the model, status code, and time; they exclude pattern data and Gemini response bodies. Cloudflare's own processing and retention are governed by its <a href="https://www.cloudflare.com/privacypolicy/">Privacy Policy</a>.</li>
+    <li><strong>Google Gemini API (paid service)</strong>: Heize currently uses the paid Gemini API service with Cloud Billing connected. Google does not use prompts and responses from this paid service to improve Google products, but may retain them for a limited period to detect and prevent abuse policy violations. See the <a href="https://ai.google.dev/gemini-api/terms">Gemini API Terms</a> and <a href="https://ai.google.dev/gemini-api/docs/zdr">data retention information</a>.</li>
+  </ul>
+  <p lang="en">Do not submit patterns containing sensitive or confidential information for AI analysis. Heize does not use advertising or tracking SDKs.</p>
+
+  <h2 lang="en">3. Retention and deletion</h2>
+  <p lang="en">Projects and attachments remain on the device until you delete a project or remove the app. When the app moves to the background, it automatically saves a last-known-good copy of project data and attachments in app-only storage. If a store error is detected, the damaged store and attachment files are also preserved separately. Recovery backups exported from the app include project data and attachments. An exported backup is saved to a location you choose and is not automatically deleted when you remove the app; delete it yourself.</p>
+  <p lang="en">Data sent for AI analysis is handled under Cloudflare's and Google's policies and service terms. Heize does not separately store submitted patterns or analysis responses on its own server.</p>
+
+  <h2 lang="en">4. Contact and your choices</h2>
+  <p lang="en">You can delete projects and attachments in the app. For privacy questions, contact <a href="mailto:rv6qxfg9mm@privaterelay.appleid.com">rv6qxfg9mm@privaterelay.appleid.com</a>.</p>
+
+  <h2 lang="en">5. Changes</h2>
+  <p lang="en">When this policy changes, the last updated date on this page will be revised.</p>
 </body>
 </html>
