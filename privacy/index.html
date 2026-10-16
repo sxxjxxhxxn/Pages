@@ -30,7 +30,7 @@
   <h2>2. 외부 서비스와 처리</h2>
   <ul>
     <li><strong>Google Cloud Run 및 Firestore</strong>: AI 요청 전달, 이용권 확인 및 남용 방지를 위해 요청 IP 주소를 처리하며, Cloud Run 서비스 요청 로그에 접속 메타데이터가 기록될 수 있습니다. Firestore에는 앱 거래 식별자, 구매 거래 식별자, 상품, 이용권 잔액 및 분석 세션 상태가 저장됩니다. 거래 기록은 중복 지급과 환불 처리를 위해 사용됩니다. PDF, 도안 내용, Gemini 프롬프트와 응답은 Firestore 이용권 장부에 저장하지 않습니다.</li>
-    <li><strong>Google Gemini API (유료 서비스)</strong>: 현재 Cloud Billing이 연결된 유료 Gemini API 서비스를 사용합니다. Google은 이 유료 서비스에서 프롬프트와 응답을 Google 제품 개선에 사용하지 않지만, 악용 정책 위반을 탐지·방지하기 위해 제한된 기간 보관할 수 있습니다. 자세한 내용은 <a href="https://ai.google.dev/gemini-api/terms">Gemini API 약관</a>과 <a href="https://ai.google.dev/gemini-api/docs/zdr">데이터 보관 안내</a>를 확인해 주세요.</li>
+    <li><strong>Google Gemini API (유료 서비스)</strong>: 현재 Cloud Billing이 연결된 유료 Gemini API 서비스를 사용합니다. Google은 이 유료 서비스의 프롬프트와 응답을 제품 개선에 사용하지 않지만, 악용 방지와 법적·규제상 의무를 위해 제한된 기간 기록할 수 있습니다. Heize는 표준 Gemini API를 사용하고 Google Search Grounding을 활성화하지 않습니다. 따라서 앱은 도안 파일을 웹에 공개하거나 Google 검색 색인에 등록하도록 제출하지 않습니다. 검색 색인 여부와 별개로 Gemini API의 제한적 보안 기록은 있을 수 있습니다. 자세한 내용은 <a href="https://ai.google.dev/gemini-api/terms">Gemini API 약관</a>과 <a href="https://ai.google.dev/gemini-api/docs/zdr">데이터 보관 안내</a>를 확인해 주세요.</li>
   </ul>
   <p>민감하거나 기밀인 정보를 포함한 도안은 AI 분석에 보내지 마세요. 광고·추적 SDK는 사용하지 않습니다.</p>
 
@@ -61,7 +61,7 @@
   <h2 lang="en">2. Third-party services</h2>
   <ul lang="en">
     <li><strong>Google Cloud Run and Firestore</strong>: Process request IP addresses to route AI requests, check access, and prevent abuse. Cloud Run request logs may also contain access metadata. Firestore stores app and purchase transaction identifiers, product, credit balance, and analysis session state. Transaction records support duplicate prevention and refund processing. PDFs, pattern content, Gemini prompts, and responses are not stored in the Firestore credit ledger.</li>
-    <li><strong>Google Gemini API (paid service)</strong>: Heize currently uses the paid Gemini API service with Cloud Billing connected. Google does not use prompts and responses from this paid service to improve Google products, but may retain them for a limited period to detect and prevent abuse policy violations. See the <a href="https://ai.google.dev/gemini-api/terms">Gemini API Terms</a> and <a href="https://ai.google.dev/gemini-api/docs/zdr">data retention information</a>.</li>
+    <li><strong>Google Gemini API (paid service)</strong>: Heize uses the paid Gemini API service with Cloud Billing connected. Google does not use prompts and responses from this paid service to improve its products, but may log them for a limited period to prevent abuse and meet legal or regulatory requirements. Heize uses the standard Gemini API and does not enable Google Search Grounding. The app therefore does not publish pattern files to the web or submit them for Google Search indexing. This does not rule out Gemini API's limited security logging. See the <a href="https://ai.google.dev/gemini-api/terms">Gemini API Terms</a> and <a href="https://ai.google.dev/gemini-api/docs/zdr">data retention information</a>.</li>
   </ul>
   <p lang="en">Do not submit patterns containing sensitive or confidential information for AI analysis. Heize does not use advertising or tracking SDKs.</p>
 
